@@ -3,6 +3,8 @@ import {SetStateAction, useState} from "react";
 import {useRouter} from "next/navigation";
 import {Alert} from "flowbite-react";
 import {setCookie} from "cookies-next";
+import {jwtDecode} from "jwt-decode";
+import {login} from "@/app/lib/auth/auth";
 
 const Swal = require('sweetalert2')
 const Cookies = require("js-cookie")
@@ -18,70 +20,11 @@ export default function Page() {
         setPassword(e.target.value)
     }
     function handleSubmit(e:any){
-
-
         e.preventDefault()
         console.log("Submit .......")
-        const fetchData = async () => {
-            try {
-                const headers = new Headers();
-                let dataToSend:{username:string, password:string} = {
-                    username: "",
-                    password: ""
-                }
-                headers.append('Content-Type', 'application/json');
-                headers.append('mode', 'cors');
-
-                // for (const element of e.target.elements) {
-                //     console.log(element.tagName)
-                //     if (element.tagName === 'INPUT') {
-                //         // @ts-ignore
-                //         dataToSend[element.name]= element.value
-                //         console.log(element.name,element.value)
-                //     }
-                // }
-                // @ts-ignore
-                dataToSend["username"] = username
-                dataToSend["password"] = password
-
-                const jsonData = JSON.stringify(dataToSend);
-                const response = await fetch('http://127.0.0.1:8000/auth/login/',{
-                    body:jsonData,
-                    method:"POST",headers:headers,
-                    credentials: 'include'});
-                console.log(response.headers)
-                let res = await response.json()
-                if (response.status == 200){
-                    Swal.fire({
-                        title: 'Everything work well!',
-                        text: 'You authentified',
-                        icon: 'success',
-                        confirmButtonText: 'Cool',
-
-                    })
-                    setCookie("token",res.access)
-                    setCookie("id",res.user.pk)
-
-                    router.push("/dashboard/event")
-                }else{
-                    console.log(res)
-                    Swal.fire({
-                        title: 'Credentials are not correct !',
-                        text: res["non_field_errors"],
-                        icon: 'error',
-                        confirmButtonText: 'Close'
-                    })
-                }
-            } catch (error) {
-                Swal.fire({
-                    title: "Error when connecting",
-                    text: error,
-                    icon: 'error',
-                    confirmButtonText: 'Close'
-                })
-            }
-    }
-        fetchData()
+        login(username, password).then((data:any)=>{
+            router.push("/dashboard/event")
+        })
     }
 
     return <>

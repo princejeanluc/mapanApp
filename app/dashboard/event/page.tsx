@@ -1,13 +1,18 @@
 'use client'
-import SearchComponent from "@/app/ui/dashboard/event/SearchComponent";
-import {useContext} from "react";
+import SearchComponent from "@/app/ui/dashboard/Components/SearchComponent";
+import {useContext, useEffect, useState} from "react";
 import {EventsFromOwnerContext} from "@/app/dashboard/layout";
-import EventList from "@/app/ui/dashboard/event/EventList";
+import EventList from "@/app/ui/dashboard/Components/EventList";
+import {ListEvents} from "@/app/lib/utils/crud";
+
 
 
 export default function Page(){
-
-    const events:any = useContext(EventsFromOwnerContext)
+    const [events , setEvents]= useState()
+    const [updateListEvents , setUpdateListEvents]= useState(false)
+    useEffect(()=>{
+        ListEvents( setEvents)
+    },[updateListEvents])
 
     return <>
         <div >

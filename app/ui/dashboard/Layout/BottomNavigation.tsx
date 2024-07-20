@@ -1,38 +1,12 @@
 
 import {Modal} from "flowbite";
 import {useRef} from "react";
-import CreateEventWidget from "@/app/ui/dashboard/event/CreateEventWidget";
+import {redirect, useRouter} from "next/navigation";
+
 
 export default function BottomNavigation(){
-        const CreateWindow = useRef(null);
-        const options:any = {
-            placement: 'bottom-right',
-            backdrop: 'dynamic',
-            backdropClasses:
-                'bg-gray-900/50 dark:bg-gray-900/80 fixed inset-0 z-40',
-            closable: true,
-            onHide: () => {
-                console.log('modal is hidden');
-            },
-            onShow: () => {
-                console.log('modal is shown');
-            },
-            onToggle: () => {
-                console.log('modal has been toggled');
-            },
-        };
-        // instance options object
-        const instanceOptions = {
-            id: 'create-event',
-            override: true
-        };
-        const modalCreate = new Modal(CreateWindow.current, options, instanceOptions);
-
+    const router = useRouter()
     return <>
-        <div id="create-event" ref={CreateWindow} tabIndex={-1} aria-hidden="true"
-             className="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full ">
-            <CreateEventWidget CloseModal={()=>{modalCreate.hide()}}></CreateEventWidget>
-        </div>
         <div
             className="md:hidden  fixed z-40 w-10/12 h-14 max-w-lg -translate-x-1/2 bg-white border border-gray-200 rounded-full bottom-4 left-1/2 dark:bg-gray-700 dark:border-gray-600">
             <div className="grid h-full max-w-lg grid-cols-5 mx-auto">
@@ -71,9 +45,8 @@ export default function BottomNavigation(){
                 <div className="flex items-center justify-center">
                     <button data-tooltip-target="tooltip-new" type="button" data-modal-target="create-event"
                             onClick={() => {
-                                modalCreate.toggle()
+                                router.push("/dashboard/event/create")
                             }}
-                            data-modal-toggle="create-event"
                             className="inline-flex items-center justify-center w-10 h-10 font-medium bg-blue-600 rounded-full hover:bg-blue-700 group focus:ring-4 focus:ring-blue-300 focus:outline-none dark:focus:ring-blue-800">
                         <svg className="w-4 h-4 text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
                              fill="none" viewBox="0 0 18 18">

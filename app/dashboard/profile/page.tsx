@@ -1,6 +1,6 @@
 'use client'
 import { PaperClipIcon } from '@heroicons/react/20/solid'
-import ProfileInf from "@/app/ui/dashboard/profileInf";
+import ProfileInf from "@/app/ui/dashboard/Layout/profileInf";
 import {refreshReducer} from "next/dist/client/components/router-reducer/reducers/refresh-reducer";
 import {useContext, useEffect, useState} from "react";
 import {UserContext} from "../layout"

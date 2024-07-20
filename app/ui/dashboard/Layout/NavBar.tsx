@@ -14,12 +14,12 @@ export default function NavBar(){
     const user:any = useContext(UserContext)
 
     return <>
-        <nav className="hidden md:block bg-white border-gray-200 dark:bg-gray-900">
+        <nav className=" bg-white border-gray-200 dark:bg-gray-900 fixed z-50 w-full top-0 ">
             <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
                 <a href="https://flowbite.com/" className="flex items-center space-x-3 rtl:space-x-reverse">
                     <img src="https://flowbite.com/docs/images/logo.svg" className="h-8" alt="Flowbite Logo"/>
                     <span
-                        className="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">Flowbite</span>
+                        className="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">Mapan</span>
                 </a>
                 <div className="flex items-center md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse">
                     <button type="button"
@@ -30,12 +30,19 @@ export default function NavBar(){
                             onClick={()=> setUserMenuIsShown(!userMenuIsShown)}
                             >
                         <span className="sr-only">Open user menu</span>
-                        <img className="w-8 h-8 rounded-full" src="/images/icon-user-24.png"
-                             alt="user photo"/>
+
+                        <div className="relative w-10 h-10 overflow-hidden bg-gray-100 rounded-full dark:bg-gray-600">
+                            <svg className="absolute w-12 h-12 text-gray-400 -left-1" fill="currentColor"
+                                 viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                                <path fillRule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z"
+                                      clipRule="evenodd"></path>
+                            </svg>
+                        </div>
+
                     </button>
 
                     <div
-                        className={`${userMenuIsShown? '':'hidden'} absolute right-5 top-10  z-50  my-4 text-base list-none bg-white divide-y divide-gray-100 rounded-lg shadow dark:bg-gray-700 dark:divide-gray-600`}
+                        className={`${userMenuIsShown ? '' : 'hidden'} absolute right-5 top-10  z-50  my-4 text-base list-none bg-white divide-y divide-gray-100 rounded-lg shadow dark:bg-gray-700 dark:divide-gray-600`}
                         id="user-dropdown">
                         <div className="px-4 py-3">
                             <span className="block text-sm text-gray-900 dark:text-white">{user? `${user.first_name} ${user.last_name}`:"unknown"}</span>

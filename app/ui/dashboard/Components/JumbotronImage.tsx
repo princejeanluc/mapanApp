@@ -1,4 +1,4 @@
-import SearchComponent from "@/app/ui/dashboard/event/SearchComponent";
+import SearchComponent from "@/app/ui/dashboard/Components/SearchComponent";
 
 
 export default function JumbotronImage(){
